@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Tailor list</h1>
+  <ul>
+    {% if tailor_list %}
+      {% for tailor in tailor_list %}
+          <li>
+          <a href="{% url "studio:tailor-detail" pk=tailor.id %}">
+            {{ tailor.username }}
+          </a>
+          {% if tailor.username == user.username %}
+            (Me)
+          {% else %}
+            ({{ tailor.first_name }} {{ tailor.last_name }})
+          {% endif %}
+        </li>
+      {% endfor %}
+    {% else %}
+      <p>There no tailor</p>
+    {% endif %}
+  </ul>
+{% endblock %}

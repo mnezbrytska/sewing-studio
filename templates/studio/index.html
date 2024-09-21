@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Your Sewing studio</h1>
+  <p>Welcome</p>
+  <h3>Studio content</h3>
+  <ul>
+    <li>Number of customers: {{ num_customers }}</li>
+    <li>Number of orders: {{ num_orders }}</li>
+    <li>Number of tailors: {{ num_tailors }}</li>
+    <li>Number of services: {{ num_services }}</li>
+    <li><strong>You have visited this page:</strong> {{ num_visits }}</li>
+  </ul>
+{% endblock %}

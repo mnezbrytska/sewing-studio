@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <h1>Services list</h1>
+  <a href="{% url 'studio:service-create' %}" 
+     class="btn btn-primary link-to-page">
+      Create
+    </a>  
+    {% if service_list %}
+  
+      <table class="table">
+      <tr>
+        <th>N</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+      
+      {% for service in service_list %}
+         <tr>
+        
+          <td>
+              {{ service.id }}
+          </td>
+          <td>
+              {{ service.name }}
+          </td>
+          <td>
+              {{ service.price }}
+          </td>
+          <td>
+              <a href="{% url 'studio:service-update' pk=service.id %}">
+                Update
+              </a>
+            </td>
+            <td>
+              <a style="color: red"
+                href="{% url 'studio:service-delete' pk=service.id %}">
+                Delete
+              </a>
+            </td>
+        </tr>
+      {% endfor %}
+      </table>
+    {% else %}
+      <p>There no services</p>
+    {% endif %}
+  
+{% endblock %}

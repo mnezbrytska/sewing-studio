@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Order N {{ order.id }} ({{ order.short_description }})</h1>
+  <p>Is active: {{ order.is_active }}</p>
+  <p><strong>Customer: </strong>
+    {{ order.customer.first_name }}{{ order.customer.last_name }}</p>
+  <p><strong>Order price: </strong> 
+    {{ order.calculate_total_price }} Paid: {{ order.is_paid }}</p>
+  <div class="ml-3">
+    <h3>Services:</h3>
+    {% for service in order.services.all %}
+      <p>{{ service.name }}</p>
+    {% empty %}
+      # impossible
+      <p>No services</p>
+    {% endfor %}
+  </div>
+{% endblock %}

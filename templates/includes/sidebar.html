@@ -1,0 +1,33 @@
+<ul class="sidebar-nav">
+    {% if user.is_authenticated %}
+    <b><a href="{% url 'studio:tailor-detail' pk=user.id %}">
+      {{ user.username }}</a></b>
+    <br>
+    <b>
+    <form method="POST" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit">Logout</button>
+    </form>
+    </b>
+    {% else %}
+    <li>
+      <a href="{% url 'login' %}">Login</a>
+    </li>
+  {% endif %}
+  <br>
+  <li>
+    <a href="{% url 'studio:index' %}">Home page</a>
+  </li>
+  <li>
+    <a href="{% url 'studio:service-list' %}">Services</a>
+  </li>
+  <li>
+    <a href="{% url 'studio:customer-list' %}">Customers</a>
+  </li>
+    <li>
+    <a href="{% url 'studio:order-list' %}">Orders</a>
+  </li>
+  <li>
+    <a href="{% url 'studio:tailor-list' %}">Tailors</a>
+  </li>
+</ul>

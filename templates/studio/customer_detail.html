@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Customer: {{ customer.first_name }} {{ customer.last_name }}</h1>
+  <p><strong>Phone number: </strong>{{ customer.phone_number }}</p>
+  <p><strong>Email: </strong> {{ customer.email }}</p>
+  <div class="ml-3">
+    <h3>Orders:</h3>
+    {% for order in customer.orders.all %}
+      {% if order %}
+      {% if order.is_active %}
+        <p><b>
+          <a href="{% url 'studio:order-detail' order.id %}">{{ order.id }}
+          </a>
+          {{ order.short_description }}: {{ order.calculate_total_price }}
+          Paid: {{ order.is_paid }}
+        </b></p>
+      {% else %}
+        <p><a href="{% url 'studio:order-detail' order.id %}">{{ order.id }}
+        </a> {{ order.short_description }}: {{ order.calculate_total_price }}  
+          Paid: {{ order.is_paid }}</p>
+      {% endif %}
+      {% else %}
+      <p>No orders</p>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endblock %}

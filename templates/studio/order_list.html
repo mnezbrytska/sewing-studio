@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Order list</h1>
+  <ul>
+    {% if order_list %}
+      {% for order in order_list %}
+        {% if order.is_active %}        
+
+          <li><a href="{% url 'studio:order-detail' order.id %}">
+            Order N{{ order.id }} {{ order.short_description }}
+          </a>
+            </li>
+
+          <li>only is_active</li>
+
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <p>There no orders</p>
+    {% endif %}
+  </ul>
+{% endblock %}
