@@ -1,8 +1,14 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 {% load static %}
 
 {% block content %}
-  <h1>Services list</h1>
+  <h1>Our services <img src="{% static 'images/tailor_2.jpg' %}"
+       alt="Description of image" width="300" height="320"></h1>
+  <form method="get" action="" class="form-inline">
+  {{ search_form|crispy }}
+  <input class="btn btn-secondary" type="submit" value="🔎">
+  </form>
   <a href="{% url 'studio:service-create' %}" 
      class="btn btn-primary link-to-page">
       Add new service

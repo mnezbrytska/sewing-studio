@@ -1,8 +1,9 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
   <h1>{{ tailor.username }}</h1>
   <div class="ml-3">
-
+<img src="{% static 'images/3824900.jpg' %}" alt="Description of image" width="500" height="400">
     {% for order in tailor.orders.all %}    
       {% if order %}
         

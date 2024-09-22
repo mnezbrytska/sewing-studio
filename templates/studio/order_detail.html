@@ -4,12 +4,19 @@
 
   <h1>Order N {{ order.id }} ({{ order.short_description }})</h1>
   <p>Is active: {{ order.is_active }}</p>
+  <p>Is urgent: {{ order.is_urgent }}</p>
   <p><strong>Customer: </strong>
     {{ order.customer.first_name }} {{ order.customer.last_name }}
     <a href="{% url 'studio:customer-detail' order.customer.id %}">details</a>
   </p>
+  <p><strong>Tailor: </strong>
+    {{ order.tailor }}
+    <a href="{% url 'studio:tailor-detail' order.tailor.id %}">details</a>
+  </p>
   <p><strong>Order price: </strong>
     {{ order.calculate_total_price }} Paid: {{ order.is_paid }}</p>
+  <p><strong>Order timing: </strong>
+    {{ order.start_date }} deadline: {{ order.finish_date }}</p>
   <div class="ml-3">
     <h3>Services:</h3>
     {% for service in order.services.all %}
@@ -19,6 +26,20 @@
       <p>No services</p>
     {% endfor %}
   </div>
+  
+  
+{% if user.id == order.tailor.id %}
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" name="remove" class="btn btn-danger">Remove me from this order</button>
+        </form>
+    {% else %}
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" name="assign" class="btn btn-primary">Assign me to this order</button>
+        </form>
+    {% endif %}
+  
   <img src="{% static 'images/4966029.jpg' %}" alt="Description of image" width="300" height="200">
 
 {% endblock %}

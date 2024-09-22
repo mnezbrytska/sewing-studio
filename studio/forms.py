@@ -24,16 +24,34 @@ class OrderForm(forms.ModelForm):
         fields = "__all__"
 
 
+class TailorSearchForm(forms.Form):
+    username = forms.CharField(
+        max_length=60,
+        # required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Username"}),
+    )
 
 
-    # def clean_license_number(self):
-    #     license_num = self.cleaned_data["license_number"]
-    #     if not license_num[:3].isupper() or not license_num[:3].isalpha():
-    #         raise ValidationError(
-    #             "First 3 characters must be uppercase letters."
-    #         )
-    #
-    #     if not license_num[3:].isdigit():
-    #         raise ValidationError("Last 5 characters must be digits.")
-    #
-    #     return license_num
+class OrderSearchForm(forms.Form):
+    short_description = forms.CharField(
+        max_length=60,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "description"}),
+    )
+
+
+class ServiceSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=160,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "name"}),
+    )
+
+
+class CustomerSearchForm(forms.Form):
+    last_name = forms.CharField(
+        max_length=160,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "last_name"}),
+    )

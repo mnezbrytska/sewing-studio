@@ -1,7 +1,15 @@
 {% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
 
 {% block content %}
   <h1>Customers list</h1>
+  <img src="{% static 'images/4909868.jpg' %}"
+       alt="Description of image" width="300" height="200">
+   <form method="get" action="" class="form-inline">
+  {{ search_form|crispy }}
+  <input class="btn btn-secondary" type="submit" value="🔎">
+  </form>
   <a href="{% url "studio:customer-create" %}"
      class="btn btn-primary link-to-page">
     Add new customer

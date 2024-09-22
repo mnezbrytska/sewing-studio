@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 {% load static %}
 
 {% block content %}
@@ -8,6 +9,10 @@
   <img src="{% static 'images/8636.jpg' %}"
        alt="Description of image" width="300" height="200">
   <h1>Order list</h1>
+    <form method="get" action="" class="form-inline">
+  {{ search_form|crispy }}
+  <input class="btn btn-secondary" type="submit" value="🔎">
+  </form>
   <a href="{% url "studio:order-create" %}"
      class="btn btn-primary link-to-page">
     Add new order
@@ -21,8 +26,11 @@
         <th>N</th>
         <th>Description</th>
         <th>Customer</th>
-        <th>is urgent</th>
-        <th>is paid</th>
+        <th>Tailor</th>
+        <th>Is urgent</th>
+        <th>Is paid</th>
+        <th>Start</th>
+        <th>Deadline</th>
         <th>Update</th>
         <th>Delete</th>
       </tr>
@@ -38,10 +46,19 @@
             {{ order.customer }}
           </td>
           <td>
+            {{ order.tailor }}
+          </td>
+          <td>
             {{ order.is_urgent }}
           </td>
           <td>
             {{ order.is_paid }}
+          </td>
+          <td>
+            {{ order.start_date }}
+          </td>
+          <td>
+            {{ order.finish_date }}
           </td>
           <td>
             <a href="{% url 'studio:order-update' pk=order.id %}">Update</a>
