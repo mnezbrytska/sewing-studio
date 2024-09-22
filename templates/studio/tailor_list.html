@@ -1,23 +1,47 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-  <h1>Tailor list</h1>
-  <ul>
-    {% if tailor_list %}
+  <img src="{% static 'images/tailor_text_1.jpg' %}" alt="Description of image" width="500" height="400">
+  {#  <h1>Tailor list</h1>#}
+  <h1>Tailor </h1>
+  <a href="{% url 'studio:tailor-create' %}" class="btn btn-primary link-to-page">
+    add new tailor
+  </a>
+
+  {% if tailor_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Update</th>
+        <th>Delete</th>
+        {#        <th>License number</th>#}
+      </tr>
       {% for tailor in tailor_list %}
-          <li>
-          <a href="{% url "studio:tailor-detail" pk=tailor.id %}">
-            {{ tailor.username }}
-          </a>
-          {% if tailor.username == user.username %}
-            (Me)
-          {% else %}
-            ({{ tailor.first_name }} {{ tailor.last_name }})
-          {% endif %}
-        </li>
+        <tr>
+          <td>{{ tailor.id }}</td>
+          <td><a href="{{ tailor.get_absolute_url }}">
+            {{ tailor.username }} {% if user == tailor %} (Me){% endif %}</a>
+          </td>
+          <td>{{ tailor.first_name }}</td>
+          <td>{{ tailor.last_name }}</td>
+          <td>
+            <a href="{% url 'studio:tailor-update' pk=tailor.id %}">Update</a>
+          </td>
+          <td>
+            <a style="color: red" href="{% url 'studio:tailor-confirm-delete' pk=tailor.id %}">Delete</a>
+          </td>
+          {#          <td>{{ tailor.license_number }}</td>#}
+
+        </tr>
+
       {% endfor %}
-    {% else %}
-      <p>There no tailor</p>
-    {% endif %}
-  </ul>
+    </table>
+  {% else %}
+    <p>There no tailor</p>
+  {% endif %}
+
 {% endblock %}

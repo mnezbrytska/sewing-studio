@@ -6,14 +6,25 @@ from .views import (
     ServiceCreateView,
     ServiceUpdateView,
     ServiceDeleteView,
+
     CustomerListView,
     CustomerCreateView,
     CustomerUpdateView,
-    TailorListView,
-    OrderListView,
+    CustomerDeleteView,
     CustomerDetailView,
+
+    OrderListView,
+    OrderCreateView,
+    OrderUpdateView,
+    OrderDeleteView,
     OrderDetailView,
-    TailorDetailView)
+
+    TailorDetailView,
+    TailorListView,
+    TailorCreateView,
+    TailorUpdateView,
+    TailorDeleteView,
+)
 
 urlpatterns = [
     path("", index, name="index" ),
@@ -41,20 +52,55 @@ urlpatterns = [
     path(
         "customers/<int:pk>/update/",
         CustomerUpdateView.as_view(),
-        name="customer-create"
+        name="customer-update"
     ),
-    path("tailors/", TailorListView.as_view(), name="tailor-list"),
-    path("orders/", OrderListView.as_view(), name="order-list"),
+    path(
+        "customers/<int:pk>/delete/",
+        CustomerDeleteView.as_view(),
+        name="customer-delete"
+    ),
     path(
         "customers/<int:pk>/",
         CustomerDetailView.as_view(),
         name="customer-detail"
+    ),
+
+    path("orders/", OrderListView.as_view(), name="order-list"),
+    path(
+        "orders/create/",
+        OrderCreateView.as_view(),
+        name="order-create"
+    ),
+    path(
+        "orders/<int:pk>/update/",
+        OrderUpdateView.as_view(),
+        name="order-update"
+    ),
+    path(
+        "orders/<int:pk>/delete/",
+        OrderDeleteView.as_view(),
+        name="order-delete"
     ),
     path("orders/<int:pk>/", OrderDetailView.as_view(), name="order-detail"),
     path(
         "tailors/<int:pk>/",
         TailorDetailView.as_view(),
         name="tailor-detail"
+    ),
+    path("tailors/", TailorListView.as_view(), name="tailor-list"),
+    path(
+        "tailors/create/", TailorCreateView.as_view(), name="tailor-create"
+    ),
+    path(
+        "tailors/<int:pk>/update/",
+        TailorUpdateView.as_view(),
+        name="tailor-update"
+    ),
+
+    path(
+        "tailors/<int:pk>/delete/",
+        TailorDeleteView.as_view(),
+        name="tailor-confirm-delete"
     ),
 
 ]

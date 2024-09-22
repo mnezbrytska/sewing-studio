@@ -1,23 +1,70 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
+  {#  <h1>Order list<a style="float: right" href="{% url "studio:order-create" %}">#}
+  {#      Add new order#}
+  {#    </a>#}
+  <img src="{% static 'images/8636.jpg' %}"
+       alt="Description of image" width="300" height="200">
   <h1>Order list</h1>
-  <ul>
-    {% if order_list %}
+  <a href="{% url "studio:order-create" %}"
+     class="btn btn-primary link-to-page">
+    Add new order
+  </a>
+
+
+  {% if order_list %}
+
+    <table class="table">
+      <tr>
+        <th>N</th>
+        <th>Description</th>
+        <th>Customer</th>
+        <th>is urgent</th>
+        <th>is paid</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
       {% for order in order_list %}
-        {% if order.is_active %}        
+        <tr>
+          <td>
+            <a href="{% url 'studio:order-detail' order.id %} ">{{ order.id }}</a>
+          </td>
+          <td>
+            {{ order.short_description }}
+          </td>
+          <td>
+            {{ order.customer }}
+          </td>
+          <td>
+            {{ order.is_urgent }}
+          </td>
+          <td>
+            {{ order.is_paid }}
+          </td>
+          <td>
+            <a href="{% url 'studio:order-update' pk=order.id %}">Update</a>
+          </td>
+          <td>
+            <a style="color: red" href="{% url 'studio:order-delete' pk=order.id %}">Delete</a>
+          </td>
+        </tr>
 
-          <li><a href="{% url 'studio:order-detail' order.id %}">
-            Order N{{ order.id }} {{ order.short_description }}
-          </a>
-            </li>
 
-          <li>only is_active</li>
+        {#        {% if order.is_active %}        #}
+        {##}
+        {#          <li><a href="{% url 'studio:order-detail' order.id %}">#}
+        {#            Order N{{ order.id }} {{ order.short_description }} {{ order.customer }}#}
+        {#          </a>#}
+        {#            </li>#}
 
-        {% endif %}
+        {#          <li>only is_active</li>#}
+        {##}
+        {#        {% endif %}#}
       {% endfor %}
-    {% else %}
-      <p>There no orders</p>
-    {% endif %}
-  </ul>
+    </table>
+  {% else %}
+    <p>There no orders</p>
+  {% endif %}
 {% endblock %}

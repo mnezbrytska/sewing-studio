@@ -1,14 +1,18 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-  <h1>Your Sewing studio</h1>
-  <p>Welcome</p>
+  <h1>Have a nice day!</h1>
+  <img src="{% static 'images/26785.jpg' %}" 
+      alt="Description of image" width="350" height="250">
+  
   <h3>Studio content</h3>
   <ul>
     <li>Number of customers: {{ num_customers }}</li>
     <li>Number of orders: {{ num_orders }}</li>
     <li>Number of tailors: {{ num_tailors }}</li>
     <li>Number of services: {{ num_services }}</li>
-    <li><strong>You have visited this page:</strong> {{ num_visits }}</li>
+    <li><strong>Have a good day at work, you've been working for {{ num_visits }} days</strong> </li>
   </ul>
+  
 {% endblock %}

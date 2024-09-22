@@ -5,6 +5,7 @@
 
     {% for order in tailor.orders.all %}    
       {% if order %}
+        
       {% if order.is_active %}
         <h3>Active orders: </h3>
         <p>
