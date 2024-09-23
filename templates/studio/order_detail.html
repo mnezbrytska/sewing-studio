@@ -9,10 +9,16 @@
     {{ order.customer.first_name }} {{ order.customer.last_name }}
     <a href="{% url 'studio:customer-detail' order.customer.id %}">details</a>
   </p>
-  <p><strong>Tailor: </strong>
-    {{ order.tailor }}
-    <a href="{% url 'studio:tailor-detail' order.tailor.id %}">details</a>
-  </p>
+  <p><strong>Tailor: </strong> </p>
+    {% if order.tailor %}
+    <p><strong>Tailor: </strong> 
+        <a href="{% url 'studio:tailor-detail' order.tailor.pk %}">
+          {{ order.tailor.username }}</a>
+    </p>
+  {% else %}
+    <p><strong>Tailor: </strong>No assigned tailor</p>
+  {% endif %}
+ 
   <p><strong>Order price: </strong>
     {{ order.calculate_total_price }} Paid: {{ order.is_paid }}</p>
   <p><strong>Order timing: </strong>
@@ -28,18 +34,24 @@
   </div>
   
   
+  
 {% if user.id == order.tailor.id %}
         <form method="post">
             {% csrf_token %}
-            <button type="submit" name="remove" class="btn btn-danger">Remove me from this order</button>
+            <button type="submit" name="remove" class="btn btn-danger">
+              Remove me from this order
+            </button>
         </form>
     {% else %}
         <form method="post">
             {% csrf_token %}
-            <button type="submit" name="assign" class="btn btn-primary">Assign me to this order</button>
+            <button type="submit" name="assign" class="btn btn-primary">
+              Assign me to this order
+            </button>
         </form>
     {% endif %}
   
-  <img src="{% static 'images/4966029.jpg' %}" alt="Description of image" width="300" height="200">
+  <img src="{% static 'images/4966029.jpg' %}"
+       alt="Description of image" width="300" height="200">
 
 {% endblock %}

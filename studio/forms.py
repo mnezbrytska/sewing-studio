@@ -1,6 +1,6 @@
-from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+
 from studio.models import Tailor, Order, Service
 
 
@@ -8,8 +8,9 @@ class TailorCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = Tailor
-        fields = UserCreationForm.Meta.fields + ("first_name", "last_name", "email" )
-        # fields = UserCreationForm.Meta.fields + ("license_number",)
+        fields = UserCreationForm.Meta.fields + (
+            "first_name", "last_name", "email"
+        )
 
 
 class OrderForm(forms.ModelForm):
@@ -17,6 +18,13 @@ class OrderForm(forms.ModelForm):
         queryset=Service.objects.all(),
         widget=forms.CheckboxSelectMultiple,
         required=True
+    )
+    start_date = forms.DateField(
+        widget=forms.DateInput(attrs={"type": "date"}), label="Start Date"
+    )
+
+    finish_date = forms.DateField(
+        widget=forms.DateInput(attrs={"type": "date"}), label="Finish Date"
     )
 
     class Meta:
@@ -37,7 +45,16 @@ class OrderSearchForm(forms.Form):
     short_description = forms.CharField(
         max_length=60,
         label="",
+        required=False,
         widget=forms.TextInput(attrs={"placeholder": "description"}),
+    )
+    start_date = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"type": "date"}), label="Start Date"
+    )
+    finish_date = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={"type": "date"}), label="Finish Date"
     )
 
 

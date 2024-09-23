@@ -1,7 +1,12 @@
-from django.test import TestCase
 from django.contrib.auth import get_user_model
+from django.test import TestCase
 
-from studio.forms import TailorSearchForm, OrderSearchForm, ServiceSearchForm, CustomerSearchForm
+from studio.forms import (
+    TailorSearchForm,
+    OrderSearchForm,
+    ServiceSearchForm,
+    CustomerSearchForm
+)
 from studio.models import Tailor, Order, Service, Customer
 
 

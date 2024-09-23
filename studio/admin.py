@@ -6,8 +6,14 @@ from studio.models import Service, Order, Tailor, Customer
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ("customer", "tailor", "start_date", "finish_date", "is_urgent", "display_services", "is_active", "is_paid")
-    list_filter = ("customer__last_name", "tailor__username", "start_date", "finish_date", "is_active")
+    list_display = (
+        "customer", "tailor", "start_date", "finish_date", "is_urgent",
+        "display_services", "is_active", "is_paid"
+                    )
+    list_filter = (
+        "customer__last_name", "tailor__username",
+        "start_date", "finish_date", "is_active"
+    )
     search_fields = ("customer__last_name", "short_description")
 
     def display_services(self, obj):

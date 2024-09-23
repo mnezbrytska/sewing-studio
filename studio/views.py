@@ -1,13 +1,23 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from .forms import TailorCreationForm, OrderForm, TailorSearchForm, CustomerSearchForm, OrderSearchForm, \
+from .forms import (
+    TailorCreationForm,
+    OrderForm,
+    TailorSearchForm,
+    CustomerSearchForm,
+    OrderSearchForm,
     ServiceSearchForm
-from .models import Order, Tailor, Service, Customer
+)
+from .models import (
+    Order,
+    Tailor,
+    Service,
+    Customer
+)
 
 
 @login_required
@@ -32,7 +42,7 @@ def index(request):
 # crud for services
 class ServiceListView(LoginRequiredMixin, generic.ListView):
     model = Service
-    paginate_by = 10
+    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ServiceListView, self).get_context_data(**kwargs)
@@ -89,7 +99,9 @@ class CustomerListView(LoginRequiredMixin, generic.ListView):
         form = CustomerSearchForm(self.request.GET)
         queryset = Customer.objects.all()
         if form.is_valid():
-            return queryset.filter(last_name__icontains=form.cleaned_data["last_name"])
+            return queryset.filter(
+                last_name__icontains=form.cleaned_data["last_name"]
+            )
         return queryset
 
 
@@ -123,26 +135,49 @@ class CustomerDetailView(LoginRequiredMixin, generic.DetailView):
 class OrderListView(LoginRequiredMixin, generic.ListView):
     model = Order
     paginate_by = 10
+    order_list = Order.objects.filter(is_active=True).order_by('start_date')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(OrderListView, self).get_context_data(**kwargs)
         short_description = self.request.GET.get("short_description", "")
+        start_date = self.request.GET.get("start_date", "")
+        finish_date = self.request.GET.get("finish_date", "")
         context["search_form"] = OrderSearchForm(
-            initial={"model": short_description}
+            initial={
+                "short_description": short_description,
+                "start_date": start_date,
+                "finish_date": finish_date,
+            }
         )
         return context
 
     def get_queryset(self):
         form = OrderSearchForm(self.request.GET)
         queryset = Order.objects.all()
+
         if form.is_valid():
-            return queryset.filter(short_description__icontains=form.cleaned_data["short_description"])
-        return queryset
+            if form.cleaned_data["short_description"]:
+                queryset = queryset.filter(
+                    short_description__icontains=
+                    form.cleaned_data["short_description"]
+                )
+
+            if form.cleaned_data["start_date"]:
+                queryset = queryset.filter(
+                    start_date__gte=
+                    form.cleaned_data["start_date"]
+                )
+
+            if form.cleaned_data["finish_date"]:
+                queryset = queryset.filter(
+                    finish_date__lte=form.cleaned_data["finish_date"]
+                )
+
+        return queryset.order_by("-is_active", "start_date")
 
 
 class OrderCreateView(LoginRequiredMixin, generic.CreateView):
     model = Order
-    # fields = "__all__"
     success_url = reverse_lazy("studio:order-list")
     template_name = "studio/order_form.html"
     form_class = OrderForm
@@ -150,7 +185,6 @@ class OrderCreateView(LoginRequiredMixin, generic.CreateView):
 
 class OrderUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Order
-    # fields = "__all__"
     success_url = reverse_lazy("studio:order-list")
     template_name = "studio/order_form.html"
     form_class = OrderForm
@@ -188,7 +222,7 @@ class TailorDetailView(LoginRequiredMixin, generic.DetailView):
 
 class TailorListView(LoginRequiredMixin, generic.ListView):
     model = Tailor
-    paginate_by = 5
+    paginate_by = 3
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TailorListView, self).get_context_data(**kwargs)
@@ -217,7 +251,6 @@ class TailorCreateView(LoginRequiredMixin, generic.CreateView):
 class TailorUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Tailor
     fields = "__all__"
-    # form_class = TailorLicenseUpdateForm
     success_url = reverse_lazy("studio:tailor-list")
 
 

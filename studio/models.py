@@ -29,7 +29,6 @@ class Service(models.Model):
 
 
 class Tailor(AbstractUser):
-    # individual_code = models.CharField(max_length=255, unique=True)
 
     class Meta:
         verbose_name = "Tailor"
@@ -41,7 +40,6 @@ class Tailor(AbstractUser):
         return reverse("studio:tailor-detail", kwargs={"pk": self.pk})
 
 
-
 class Order(models.Model):
     start_date = models.DateField()
     finish_date = models.DateField()
@@ -49,14 +47,20 @@ class Order(models.Model):
     customer = models.ForeignKey(
         Customer, on_delete=models.CASCADE, related_name="orders"
     )
-    tailor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name="orders")
+    tailor = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="orders"
+    )
     is_urgent = models.BooleanField(default=False)
     services = models.ManyToManyField(Service, related_name="orders")
     is_active = models.BooleanField(default=True)
     is_paid = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ("is_active", )
+        ordering = ("-is_active", "start_date")
 
     def __str__(self):
         return f"{self.customer} {self.services} {self.short_description} "

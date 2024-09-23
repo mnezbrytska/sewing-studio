@@ -6,13 +6,17 @@
   <img src="{% static 'images/26785.jpg' %}" 
       alt="Description of image" width="350" height="250">
   
-  <h3>Studio content</h3>
+  <h3>We work every day for your happiness</h3>
   <ul>
-    <li>Number of customers: {{ num_customers }}</li>
-    <li>Number of orders: {{ num_orders }}</li>
+    <li>Number of  our customers: {{ num_customers }}</li>
+    <li>The number of customers we have: {{ num_orders }}</li>
     <li>Number of tailors: {{ num_tailors }}</li>
-    <li>Number of services: {{ num_services }}</li>
-    <li><strong>Have a good day at work, you've been working for {{ num_visits }} days</strong> </li>
+    <li>The number of services we can offer: {{ num_services }}</li>
+    <li>
+      <strong>
+        Have a good day at work, you've been working for {{ num_visits }} days
+      </strong>
+    </li>
   </ul>
   
 {% endblock %}
