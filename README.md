@@ -4,7 +4,9 @@
 
  for load data -> python manage.py loaddata data.json
 
-
+Try to use this user for testing:
+username: Test1
+password: usertest
 
 This project is a **Django-based application** designed to manage the operations of a sewing studio. The system helps to manage customers, tailors, orders, and the services provided. It allows for tracking orders, assigning tailors, and calculating service costs.
 
