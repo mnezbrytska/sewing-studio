@@ -9,14 +9,14 @@
     {{ order.customer.first_name }} {{ order.customer.last_name }}
     <a href="{% url 'studio:customer-detail' order.customer.id %}">details</a>
   </p>
-  <p><strong>Tailor: </strong> </p>
+{#  <p><strong>Tailor: </strong> </p>#}
     {% if order.tailor %}
     <p><strong>Tailor: </strong> 
         <a href="{% url 'studio:tailor-detail' order.tailor.pk %}">
           {{ order.tailor.username }}</a>
     </p>
   {% else %}
-    <p><strong>Tailor: </strong>No assigned tailor</p>
+    <p>No assigned tailor</p>
   {% endif %}
  
   <p><strong>Order price: </strong>

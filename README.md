@@ -2,7 +2,8 @@
 
 # Sewing Studio Management System
 
- for lad data -> python manage.py loaddata data.json
+ for load data -> python manage.py loaddata data.json
+
 
 
 This project is a **Django-based application** designed to manage the operations of a sewing studio. The system helps to manage customers, tailors, orders, and the services provided. It allows for tracking orders, assigning tailors, and calculating service costs.
