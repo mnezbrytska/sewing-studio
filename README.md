@@ -1,8 +1,9 @@
-# this project will be changed!!!
 
 # Sewing Studio Management System
 
- for load data -> python manage.py loaddata data.json
+https://sewing-studio.onrender.com/
+
+for load data -> python manage.py loaddata data.json
 
 Try to use this user for testing:
 username: Test1

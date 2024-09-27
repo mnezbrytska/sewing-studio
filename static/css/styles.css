@@ -9,50 +9,12 @@ body {
 
 }
 
-/*!* Styles for the services table *!*/
-/*.service-table {*/
-/*    width: 100%;*/
-/*    border-collapse: collapse; !* Забирає проміжки між комірками *!*/
-/*    margin: 20px 0; !* Відступ таблиці зверху та знизу *!*/
-/*    font-size: 18px;*/
-/*    text-align: left;*/
-/*}*/
-
-/*.service-table th, .service-table td {*/
-/*    border: 1px solid #ddd;*/
-/*    padding: 12px 15px; !* Додає відступи всередині комірок *!*/
-/*}*/
-
-/*.service-table th {*/
-/*    background-color: #4CAF50; !* Зелений фон для заголовків *!*/
-/*    color: white; !* Білий текст заголовка *!*/
-/*    text-transform: uppercase; !* Текст у заголовках великими літерами *!*/
-/*    font-weight: bold;*/
-/*}*/
-
-/*.service-table tr:nth-child(even) {*/
-/*    background-color: #f2f2f2; !* Сіра заливка для парних рядків *!*/
-/*}*/
-
-/*.service-table tr:hover {*/
-/*    background-color: #ddd; !* Підсвітка при наведенні курсора на рядок *!*/
-/*}*/
-
-/*.service-table td a {*/
-/*    text-decoration: none; !* Забирає підкреслення у посилань *!*/
-/*    color: #4CAF50; !* Колір посилань зелений *!*/
-/*}*/
-
-/*.service-table td a:hover {*/
-/*    color: #333; !* Зміна кольору посилання при наведенні *!*/
-/*}*/
-
 .header-content-inline img,
 .header-content-inline .text-content {
     display: inline-block;
-    vertical-align: middle; /* Вирівнює елементи по центру вертикально */
+    vertical-align: middle;
 }
 
 .text-content h1 {
-    margin: 0; /* Забирає відступи заголовка */
+    margin: 0;
 }

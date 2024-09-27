@@ -13,4 +13,3 @@ python manage.py migrate
 
 #load fixtures
 python manage.py loaddata studio_data.json
-
