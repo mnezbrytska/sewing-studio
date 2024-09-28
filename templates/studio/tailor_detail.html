@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <h1>{{ tailor.username }}</h1>
+  <div class="ml-3">
+<img src="{% static 'images/3824900.jpg' %}" alt="Description of image" width="500" height="400">
+    {% for order in tailor.orders.all %}    
+      {% if order %}
+        
+      {% if order.is_active %}
+        <h3>Active orders: </h3>
+        <p>
+          <b>{{ order.short_description }}: {{ order.calculate_total_price }}  
+            Paid: {{ order.is_paid }}</b>
+        </p>
+        {% else %}
+        <h3>Order's history: </h3>
+        <p>{{ order.short_description }}: {{ order.calculate_total_price }}  
+          Paid: {{ order.is_paid }}</p>
+      {% endif %}
+      {% else %}        
+      <p>No orders</p>
+      {% endif %}
+    {% endfor %}  
+
+
+  </div>
+{% endblock %}

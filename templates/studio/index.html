@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <h1>Have a nice day!</h1>
+  <img src="{% static 'images/26785.jpg' %}" 
+      alt="Description of image" width="350" height="250">
+  
+  <h3>We work every day for your happiness</h3>
+  <ul>
+    <li>Number of  our customers: {{ num_customers }}</li>
+    <li>The number of customers we have: {{ num_orders }}</li>
+    <li>Number of tailors: {{ num_tailors }}</li>
+    <li>The number of services we can offer: {{ num_services }}</li>
+    <li>
+      <strong>
+        Have a good day at work, you've been working for {{ num_visits }} days
+      </strong>
+    </li>
+  </ul>
+  
+{% endblock %}

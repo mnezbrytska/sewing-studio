@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>Customers list</h1>
+  <img src="{% static 'images/4909868.jpg' %}"
+       alt="Description of image" width="300" height="200">
+   <form method="get" action="" class="form-inline">
+  {{ search_form|crispy }}
+  <input class="btn btn-secondary" type="submit" value="🔎">
+  </form>
+  <a href="{% url "studio:customer-create" %}"
+     class="btn btn-primary link-to-page">
+    Add new customer
+  </a>
+
+  {% if customer_list %}
+    <table class="table">
+      <tr>
+        <th>N</th>
+        <th>Last name</th>
+        <th>First name</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+      {% for customer in customer_list %}
+        <tr>
+          <td>
+            <a href="{% url 'studio:customer-detail' customer.id %}">{{ customer.id }}</a>
+          </td>
+          <td>
+            {{ customer.last_name }}
+          </td>
+          <td>
+            {{ customer.first_name }}
+          </td>
+          <td>
+            <a href="{% url 'studio:customer-update' pk=customer.id %}">Update</a>
+          </td>
+          <td>
+            <a style="color: red" href="{% url 'studio:customer-delete' pk=customer.id %}">Delete</a>
+          </td>
+        </tr>
+
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>There no customers</p>
+  {% endif %}
+
+{% endblock %}

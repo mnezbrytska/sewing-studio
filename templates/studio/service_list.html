@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block content %}
+  <h1>Our services <img src="{% static 'images/tailor_2.jpg' %}"
+       alt="Description of image" width="300" height="320"></h1>
+  <form method="get" action="" class="form-inline">
+  {{ search_form|crispy }}
+  <input class="btn btn-secondary" type="submit" value="🔎">
+  </form>
+  <a href="{% url 'studio:service-create' %}" 
+     class="btn btn-primary link-to-page">
+      Add new service
+    </a>  
+    {% if service_list %}
+  
+      <table class="table">
+      <tr>
+        <th>N</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+      
+      {% for service in service_list %}
+         <tr>
+        
+          <td>
+              {{ service.id }}
+          </td>
+          <td>
+              {{ service.name }}
+          </td>
+          <td>
+              {{ service.price }}
+          </td>
+          <td>
+              <a href="{% url 'studio:service-update' pk=service.id %}">
+                Update
+              </a>
+            </td>
+            <td>
+              <a style="color: red"
+                href="{% url 'studio:service-delete' pk=service.id %}">
+                Delete
+              </a>
+            </td>
+        </tr>
+      {% endfor %}
+      </table>
+    {% else %}
+      <p>There no services</p>
+    {% endif %}
+  
+{% endblock %}

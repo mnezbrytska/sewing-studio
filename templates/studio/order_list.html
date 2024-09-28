@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block content %}
+
+  <img src="{% static 'images/8636.jpg' %}"
+       alt="Description of image" width="300" height="200">
+  <h1>Order list</h1>
+  <form method="get" action="" class="form-inline">
+  {{ search_form|crispy }}
+  <button type="submit" class="btn btn-secondary">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" 
+         class="bi bi-search-heart" viewBox="0 0 16 16">
+      <path d="M6.5 4.482c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018"/>
+      <path d="M13 6.5a6.47 6.47 0 0 1-1.258 3.844q.06.044.115.098l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1-.1-.115h.002A6.5 6.5 0 1 1 13 6.5M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11"/>
+    </svg>
+  </button>
+  <a href="{% url 'studio:order-list' %}" class="btn btn-secondary ml-2">Reset</a>
+  </form>
+  <a href="{% url "studio:order-create" %}"
+     class="btn btn-primary link-to-page">
+    Add new order
+  </a>
+
+
+  {% if order_list %}
+
+    <table class="table">
+      <tr>
+        <th>N</th>
+        <th>Description</th>
+        <th>Customer</th>
+        <th>Tailor</th>
+        <th>Is urgent</th>
+        <th>Is paid</th>
+        <th>Is active</th>
+        <th>Start</th>
+        <th>Deadline</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+      {% for order in order_list %}
+        <tr>
+          <td>
+            <a href="{% url 'studio:order-detail' order.id %} ">{{ order.id }}
+            </a>
+          </td>
+          <td>
+            {{ order.short_description }}
+          </td>
+          <td>
+            {{ order.customer }}
+          </td>
+          <td>
+            {{ order.tailor }}
+          </td>
+          <td>
+            {{ order.is_urgent }}
+          </td>
+          <td>
+            {{ order.is_paid }}
+          </td>
+          <td>
+            {{ order.is_active }}
+          </td>
+          <td>
+            {{ order.start_date }}
+          </td>
+          <td>
+            {{ order.finish_date }}
+          </td>
+          <td>
+            <a href="{% url 'studio:order-update' pk=order.id %}">Update</a>
+          </td>
+          <td>
+            <a style="color: red" 
+               href="{% url 'studio:order-delete' pk=order.id %}">Delete</a>
+          </td>
+        </tr>
+
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>There no orders</p>
+  {% endif %}
+{% endblock %}
