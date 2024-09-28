@@ -9,6 +9,10 @@ Try to use this user for testing:
 username: Test1
 password: usertest
 
+Create a .env file by copying the .env.sample file.
+Open the .env file and replace the placeholder values with your own.
+
+
 This project is a **Django-based application** designed to manage the operations of a sewing studio. The system helps to manage customers, tailors, orders, and the services provided. It allows for tracking orders, assigning tailors, and calculating service costs.
 
 ## 
